@@ -1,0 +1,8 @@
+---
+
+# Handlers main file for rsync role
+
+- name: restart rsync
+  service:
+    name: rsync
+    state: restarted
