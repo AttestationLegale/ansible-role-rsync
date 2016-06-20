@@ -43,5 +43,12 @@ script:
     && (echo '/etc/rsyncd.secrets exists: pass' && exit 0)
     || (echo '/etc/rsyncd.secrets does not exist: fail' && exit 1)
 
+  # Check if /etc/rsyncd.secrets mode is 0600.
+  - >
+    ls -l /etc/rsyncd.secrets
+    | awk '{ print $1; }' | grep -q "^-rw-------$"
+    && (echo '/etc/rsyncd.secrets mode = 0600 - pass' && exit 0)
+    || (echo '/etc/rsyncd.secrets mode != 0600 - fail' && exit 1)
+
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
